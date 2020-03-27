@@ -12,7 +12,7 @@ if stores == "y":
 
 
 if stores == "n":
-    file = open("data.txt", "r")
+    file = open("data.json", "r")
     print("You want to get one of your passwords ")
     #print(file.read())
     data_string = file.read()
