@@ -1,9 +1,9 @@
 import json
 
 
-stores = input("Do you want to store password? If YES, type y, of NO, type n ")
+stores = input("Do you want to store password? If YES, type y, if NO, type n ")
 if stores == "y":
-    file = open("data.txt", "w")
+    file = open("data.json", "w")
     password = input("Enter your password ")
     account = input("Enter for what account is it ")
     pass_dict = {"password" : password, "account" : account}
@@ -19,4 +19,5 @@ if stores == "n":
     account = input("Enter the account ")
     pass_dict = json.loads(data_string)
     print(pass_dict["password"])
+
 
