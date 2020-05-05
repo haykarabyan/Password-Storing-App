@@ -1,23 +1,40 @@
-import json
+from MainFunctions import *
 
+def main():
+    file_name = 'data.json'
+    fill_the_file(file_name)
+    action = None
+    authenticated = False
+    while not authenticated:
+        authenticated = False
+        while not authenticated:
+            if authenticate():
+                authenticated = True
+            else:
+                print("Incorrect password, please try again")
+    while True:
+        print("Do you want to store password? If YES, type y, if you want to get one of your passwords, type n")
+        print("If you want to change your password for this app, type change")
+        stores = get_user_input("If you want to try our game mode type interactive ")
+        if not stores:
+            break
+        if answerIsYes(stores):
+            action = StorePassword
+            print("Storing")
+        elif answerIsNo(stores):
+            action = ReadPassword
+        elif answerIsChange(stores):
+            update_authentication_password()
+        elif answerIsInteractive(stores):
+            action = game_mode
+        else:
+            print("Invalid input, going back to the main menu ")
 
-stores = input("Do you want to store password? If YES, type y, if NO, type n ")
-if stores == "y":
-    file = open("data.json", "w")
-    password = input("Enter your password ")
-    account = input("Enter for what account is it ")
-    pass_dict = {"password" : password, "account" : account}
-    pass_dict_json= json.dumps(pass_dict)
-    file.write(pass_dict_json)
+        if action:
+            x = action(file_name)
+            if x == -1:
+                break
+    print("You closed our app")
+    print("Thank you for using our app")
 
-
-if stores == "n":
-    file = open("data.json", "r")
-    print("You want to get one of your passwords ")
-    #print(file.read())
-    data_string = file.read()
-    account = input("Enter the account ")
-    pass_dict = json.loads(data_string)
-    print(pass_dict["password"])
-
-
+main()
